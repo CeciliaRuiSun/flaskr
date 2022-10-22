@@ -13,6 +13,7 @@ def create_app(test_config = None):
         response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
         return response
 
+
     @app.route('/plants', methods=['GET'])
     def get_plants():
         page = request.args.get('page', 1, type = int)
@@ -23,6 +24,7 @@ def create_app(test_config = None):
 
         return jsonify({
             'success': True,
+
             'plants': formatted_plants[start:end],
             'total_plants': len(formatted_plants)
             })
@@ -39,4 +41,5 @@ def create_app(test_config = None):
                 'success': True,
                 'plant': plant.format()
                 })
+
     return app
