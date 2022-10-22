@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, abort
 from models import setup_db, Plant
 from flask_cors import CORS
 
@@ -6,13 +6,12 @@ def create_app(test_config = None):
     app = Flask(__name__)
     setup_db(app)
     CORS(app)
-
+#test
     @app.after_request
     def after_request(response):
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
         response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
         return response
-
 
     @app.route('/plants', methods=['GET'])
     def get_plants():
@@ -24,7 +23,6 @@ def create_app(test_config = None):
 
         return jsonify({
             'success': True,
-
             'plants': formatted_plants[start:end],
             'total_plants': len(formatted_plants)
             })
@@ -41,5 +39,4 @@ def create_app(test_config = None):
                 'success': True,
                 'plant': plant.format()
                 })
-
     return app
